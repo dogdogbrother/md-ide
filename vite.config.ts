@@ -7,8 +7,7 @@ import { resolve } from 'path'
 export default defineConfig({
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
-      'types': resolve(__dirname, 'types')
+      '@': resolve(__dirname, 'src')
     }
   },
   plugins: [
@@ -21,7 +20,8 @@ export default defineConfig({
     outDir: '_dist',
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html')
+        main: resolve(__dirname, 'index.html'),
+        title: resolve(__dirname, 'pages/title/index.html'),
       }
     }
   }

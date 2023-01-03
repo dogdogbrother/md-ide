@@ -2,6 +2,7 @@ import { app, BrowserWindow } from 'electron'
 import loadUrl from './util/loadUrl'
 import { getConfig } from './util/appPath'
 import { WindowsProp } from 'types/app'
+import { createTitle } from './title'
 
 const windows: WindowsProp = {} 
 
@@ -36,5 +37,6 @@ export function createMainWindow(windows: WindowsProp, md_file: string) {
   loadUrl(windows.main)
   windows.main.once('ready-to-show', () => {
     windows.main?.show()
+    createTitle(windows)
   })
 }

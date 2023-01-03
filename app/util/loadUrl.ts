@@ -1,11 +1,11 @@
 import isDev from 'electron-is-dev'
 import path from 'path'
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, BrowserView } from 'electron'
 
-export default function loadUrl(window: BrowserWindow, route = '') {
+export default function loadUrl(window: BrowserWindow | BrowserView, route = '') {
   if (isDev) {
-    window.loadURL(`http://localhost:5500${route}`)
+    window.webContents.loadURL(`http://localhost:5500${route}`)
   } else {
-    window.loadURL(`file://${path.resolve(__dirname, '../_dist/' + (route || 'index.html'))}`)
+    window.webContents.loadURL(`file://${path.resolve(__dirname, '../_dist/' + (route || 'index.html'))}`)
   }
 } 

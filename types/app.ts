@@ -1,5 +1,6 @@
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, BrowserView } from 'electron'
 
 export interface WindowsProp {
-  main?: BrowserWindow
+  main?: BrowserWindow,
+  title?: BrowserView
 } 
