@@ -1,11 +1,9 @@
 import { app, BrowserWindow } from 'electron'
 import loadUrl from './util/loadUrl'
 import { getConfig } from './util/appPath'
+import { WindowsProp } from 'types/app'
 
-interface windowsProp {
-  main?: BrowserWindow
-} 
-const windows: windowsProp = {} 
+const windows: WindowsProp = {} 
 
 app.on('ready', async () => {
   const config = getConfig()
@@ -14,11 +12,11 @@ app.on('ready', async () => {
     createMainWindow(windows, config.md_file)
   } else {
     const { createProject } = await import('./createProject')
-    console.log(createProject);
+    createProject(app, windows)
   }
 })
 
-export function createMainWindow(windows: windowsProp, md_file: string) {
+export function createMainWindow(windows: WindowsProp, md_file: string) {
   windows.main = new BrowserWindow({
     width: 1280,
     height: 930,

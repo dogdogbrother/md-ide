@@ -1,5 +1,5 @@
 import { BrowserWindow } from 'electron'
 
-export interface windowsProp {
+export interface WindowsProp {
   main?: BrowserWindow
 } 
