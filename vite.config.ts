@@ -18,6 +18,11 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: '_dist'
+    outDir: '_dist',
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html')
+      }
+    }
   }
 })
