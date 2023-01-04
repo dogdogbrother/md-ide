@@ -3,6 +3,7 @@ import loadUrl from './util/loadUrl'
 import { getConfig } from './util/appPath'
 import { WindowsProp } from 'types/app'
 import { createTitle } from './title'
+import { createCatalog } from './catalog'
 
 const windows: WindowsProp = {} 
 
@@ -38,5 +39,6 @@ export function createMainWindow(windows: WindowsProp, md_file: string) {
   windows.main.once('ready-to-show', () => {
     windows.main?.show()
     createTitle(windows)
+    createCatalog(windows, md_file)
   })
 }

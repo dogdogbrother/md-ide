@@ -14,8 +14,14 @@ export function createTitle(windows: WindowsProp) {
   windows.title.setAutoResize({ width: true })
   windows.title.setBounds({ x: 0, y: 0, width: 1280, height: 30 })
   loadUrl(windows.title, '/pages/title/index.html')
-  // windows.title.webContents.openDevTools()
+  windows.title.webContents.openDevTools()
   ipcMain.once('isMaximized', () => {
     windows.title?.webContents.postMessage('isMaximized', windows.main?.isMaximized())
+  })
+  windows.main?.on('enter-full-screen', () => {
+    windows.title?.webContents.postMessage('isMaximized', true)
+  })
+  windows.main?.on('leave-full-screen', () => {
+    windows.title?.webContents.postMessage('isMaximized', false)
   })
 }

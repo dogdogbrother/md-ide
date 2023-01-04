@@ -1,4 +1,4 @@
-import React, { useEffect, useState }  from 'react'
+import React, { useState }  from 'react'
 import ReactDOM from 'react-dom/client'
 import '../../src/assets/style/reset.css'
 import '../../src/assets/style/index.css'
@@ -22,7 +22,7 @@ function App() {
   }
   return <div className='title-wrap'>
     {
-      isMac && <div className='mac-placeholder'> </div>
+      (isMac && !isMaximized) && <div className='mac-placeholder'> </div>
     }
     <ul className='menu'>
       <li>设置</li>
