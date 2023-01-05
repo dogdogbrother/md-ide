@@ -1,8 +1,12 @@
 import { makeAutoObservable } from "mobx"
 const { ipcRenderer } = require('electron')
-
+import { FileInfoProp, DirInfoProp, DocInfoProp } from '../../types/app'
 class CatalogStore {
-  menus = []
+  menus: FileInfoProp[] = []
+  dirMenus: DirInfoProp[] = [] 
+  docMenus: DocInfoProp[] = []
+  currentDirName: ''
+  currentDocName: ''  
   constructor() {
     makeAutoObservable(this)
     ipcRenderer.send('getDocs')
@@ -11,8 +15,19 @@ class CatalogStore {
     })
   }
   setMenus(menus) {
-    console.log(menus)
     this.menus = menus
+    this.dirMenus = menus.filter(menu => menu.type === 'dir')
+    this.docMenus = menus.filter(menu => menu.type === 'doc')
+  }
+  setCurrentMenuName(docName, dirName) {
+    this.currentDocName = docName
+    this.currentDirName = dirName
+  }
+  emptyMenu() {
+    ipcRenderer.send('emptyMenu')
+  }
+  editDir(docName, dirName) {
+    ipcRenderer.send('editMune', JSON.stringify({docName, dirName}))
   }
 }
 

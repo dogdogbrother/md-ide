@@ -1,53 +1,61 @@
-.title-wrap {
-  height: 30px;
-  padding: 2px 20px;
-  font-size: 14px;
-  line-height: 26px;
-  display: flex;
-  justify-content: space-between;
-  background-color: #845EC2;
+.catalog-wrap {
+  background-color: rgba(#ccc, 0.2);
+  height: 100vh;
+  padding: 10px;
   box-sizing: border-box;
-  border-bottom: 1px solid rgba(#999, 0.3);
-  .mac-placeholder {
-    width: 70px;
-  }
-  .menu {
-    flex: 1;
-    display: flex;
-    -webkit-app-region: drag;
-    li {
-      color: rgba(#fff, 0.8);
-      transition: .2s;
-      -webkit-app-region: no-drag;
-      margin-right: 8px;
-      font-weight: bold;
-      padding: 0 10px;
-      &:last-child {
-        margin-right: 0;
-      }
-      &:hover {
-        color: rgba(#fff, 1);
-      }
-      &:active {
-        background-color: rgba(black, 0.08);
-      }
-    }
-  }
+  border-right: 1px solid rgba(#ccc, 0.7);
 }
-.icon-box {
+li {
   display: flex;
   align-items: center;
-  font-size: 18px;
-  > * {
-    margin-right: 10px;
-    color: rgba(#222, 0.6);
-    transition: .2s;
-    cursor: pointer;
-    &:last-child {
-      margin-right: 0;
-    }
-    &:hover {
-      color: rgba(#222, 1);
-    }
+  cursor: pointer;
+  padding: 7px 10px;
+  border-radius: 10px;
+  transition: 0.2s;
+  font-size: 14px;
+  background-color: rgba(#eee,  0);
+  svg {
+    flex-shrink: 0;
   }
+  span {
+    flex: 1;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  &:hover {
+    background-color: rgba(#eee,  0.4);
+  }
+  &.active {
+    background-color: rgba(blue, 0.5);
+    color: #fff;
+  }
+  svg {
+    margin-right: 5px;
+    font-size: 20px;
+  }
+  
+}
+.dir {
+  .arrow {
+    transition: .3s;
+    transform: rotateZ(0deg);
+    transform-origin: center center;
+    height: 20px;
+    color: #555;
+  }
+  &.is-unfold .arrow{
+    transform: rotateZ(90deg);
+  }
+}
+.dir-md {
+  transition: all .2s;
+  height: 0px;
+  overflow: hidden;
+  padding: 0px 10px 0px 25px;
+}
+.is-unfold.dir-md {
+  padding: 7px 10px 7px 25px;
+  height: 20px;
 }

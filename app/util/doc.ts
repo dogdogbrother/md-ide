@@ -1,11 +1,12 @@
 import { getDocPath } from './appPath'
 import fs from 'fs'
+import { DirInfoProp, FileInfoProp, DocInfoProp } from 'types/app'
 
 /**
  * @description 会返回个二维数组
  */
 export function getAllDoc() {
-  const _dir = []
+  const _dir: FileInfoProp[] = []
   _getDir().forEach(dir => {
     const fullPath = getDocPath(dir)
     const stats = fs.statSync(fullPath)
@@ -20,7 +21,7 @@ export function getAllDoc() {
       })
     }
   })
-  // return [..._dir, ..._getRootDocs()]
+  return [..._dir, ..._getRootDocs()]
 }
 
 // 获取到全部的文件夹
@@ -31,9 +32,9 @@ function _getDir() {
 }
 
 // 最终生成文档对象的回调方法
-const _getDocFn = (file: string) => {
+const _getDocFn = (file: string): DocInfoProp | DirInfoProp => {
   return {
-    type: 'md',
+    type: 'doc',
     name: file.split('.md')[0]
   }
 }
