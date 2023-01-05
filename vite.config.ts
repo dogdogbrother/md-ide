@@ -22,7 +22,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         title: resolve(__dirname, 'pages/title/index.html'),
-        catalog: resolve(__dirname, 'pages/catalog/index.html')
+        catalog: resolve(__dirname, 'pages/catalog/index.html'),
+        formDialog: resolve(__dirname, 'pages/formDialog/index.html'),
       }
     }
   }

@@ -3,6 +3,7 @@ import { WindowsProp } from 'types/app'
 import { setBrowserView } from './util/setBrowserView'
 import loadUrl from './util/loadUrl'
 import { getAllDoc } from './util/doc'
+import { createFormDialog } from './formDialog'
 
 export function createCatalog(windows: WindowsProp, md_file: string) {
   windows.catalog = new BrowserView({
@@ -24,7 +25,7 @@ export function createCatalog(windows: WindowsProp, md_file: string) {
     vertical: true
   })
   loadUrl(catalog, '/pages/catalog/index.html')
-  catalog.webContents.openDevTools()
+  // catalog.webContents.openDevTools()
   ipcMain.on('getDocs', () => {
     getDocAndPost(catalog)
   })
@@ -32,9 +33,9 @@ export function createCatalog(windows: WindowsProp, md_file: string) {
     const template: MenuItemConstructorOptions[] = [
       {
         label: "新建markdown文档",
-        // click: () => {
-        //   // createFormDialog(window, 'addRootDoc')
-        // }
+        click: () => {
+          createFormDialog(windows, 'editDoc')
+        }
       },
       {
         label: "新建目录",

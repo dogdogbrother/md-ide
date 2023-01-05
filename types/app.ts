@@ -4,6 +4,7 @@ export interface WindowsProp {
   main?: BrowserWindow,
   title?: BrowserView,
   catalog?: BrowserView,
+  formDialog?: BrowserWindow
 } 
 
 export interface DirInfoProp {
@@ -18,3 +19,5 @@ export interface DocInfoProp {
 }
 
 export type FileInfoProp = DirInfoProp | DocInfoProp
+
+export type FormDialogAction = 'editDoc' | 'editDir'
