@@ -21,3 +21,11 @@ export interface DocInfoProp {
 export type FileInfoProp = DirInfoProp | DocInfoProp
 
 export type FormDialogAction = 'editDoc' | 'editDir'
+
+export interface DorDirInfo {
+  dirName?: string
+  docName?: string
+}
+export interface ActionInfoProp extends DorDirInfo {
+  action: FormDialogAction
+}

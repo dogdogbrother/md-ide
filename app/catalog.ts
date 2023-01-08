@@ -4,6 +4,7 @@ import { setBrowserView } from './util/setBrowserView'
 import loadUrl from './util/loadUrl'
 import { getAllDoc } from './util/doc'
 import { createFormDialog } from './formDialog'
+import { getDocPath } from './util/appPath'
 
 export function createCatalog(windows: WindowsProp, md_file: string) {
   windows.catalog = new BrowserView({
@@ -39,16 +40,16 @@ export function createCatalog(windows: WindowsProp, md_file: string) {
       },
       {
         label: "新建目录",
-        // click: () => {
-        //   // createFormDialog(window, 'addDir')
-        // }
+        click: () => {
+          createFormDialog(windows, 'editDir')
+        }
       },
       { type: 'separator' },
       {
         label: "打开所在目录",
-        // click: () => {
-        //   // shell.openPath(join(md_file, 'docs'))
-        // }
+        click: () => {
+          shell.openPath(getDocPath())
+        }
       }
     ]
     const menu = Menu.buildFromTemplate(template)

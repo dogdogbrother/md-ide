@@ -43,7 +43,10 @@ export function getDocPath(fileName?: string, dirName? : string): string {
     return join(md_file, 'docs', fileName)
   }
   if (fileName && dirName) {
-    return join(md_file, 'docs', dirName, fileName)
+    return join(md_file, 'docs', dirName, fileName )
+  }
+  if (!fileName && dirName) {
+    return join(md_file, 'docs', dirName )
   }
   return join(md_file, 'docs')
 }

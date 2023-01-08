@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { IpcRendererEvent } from 'electron'
-import { FileInfoProp } from '../../types/app'
+import { FileInfoProp, ActionInfoProp, FormDialogAction, DorDirInfo } from '../../types/app'
 const { ipcRenderer } = require('electron')
 
 /**
@@ -35,9 +35,19 @@ export function useAllDoc() {
 }
 
 /**
- * @description 去获取全部的文档信息,是因为保存文件名时校验下 防止重复了,
+ * @description 去获取右键时的状态信息,便于知道是想做什么
  */
 export function useActionInfo() {
-
+  const [action, setAction] = useState<FormDialogAction>()
+  const [defaultInfo, setDefaultInfo] = useState<DorDirInfo>({})
+  useEffect(() => {
+    ipcRenderer.send('getAction')
+    ipcRenderer.on('getAction', (_e, actionInfo) => {
+      const { action, dirName, docName }: ActionInfoProp = JSON.parse(actionInfo)
+      setAction(action)
+      setDefaultInfo({ dirName, docName })
+    })
+  }, [])
+  return { action, defaultInfo }
 }
 
