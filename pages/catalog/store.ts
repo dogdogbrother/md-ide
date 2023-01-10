@@ -29,6 +29,9 @@ class CatalogStore {
   editDir(docName, dirName) {
     ipcRenderer.send('editMune', JSON.stringify({docName, dirName}))
   }
+  editDoc(docName, dirName) {
+    ipcRenderer.send('editMenuDoc', JSON.stringify({docName, dirName}))
+  }
 }
 
 export default new CatalogStore()

@@ -11,7 +11,7 @@ function EditDoc(props) {
     onFinish={onFinish}
     colon={false}
   >
-    <Form.Item label='目录' name='dirName' initialValue={defaultInfo.dirName || ''}>
+    <Form.Item label='目录' name='dirName' initialValue={defaultInfo.dirName || undefined}>
       <Select 
         defaultValue={defaultInfo.dirName || ''}
         options={[

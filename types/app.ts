@@ -25,6 +25,8 @@ export type FormDialogAction = 'editDoc' | 'editDir'
 export interface DorDirInfo {
   dirName?: string
   docName?: string
+  preDirName?: string  // 未编辑前的文件夹名
+  preDocName?: string
 }
 export interface ActionInfoProp extends DorDirInfo {
   action: FormDialogAction

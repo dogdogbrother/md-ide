@@ -31,7 +31,12 @@ function App() {
     ipcRenderer.send('formDialogClose')
   }
   function onDocFinish(values: DorDirInfo) {
-    const { dirName, docName } = values
+    const { dirName: _dirName, docName } = values
+    console.log(_dirName);
+    
+    const dirName = _dirName || undefined
+    console.log(dirName);
+    
     if (!docName) {
       return setValidateinfo({
         validateStatus: 'error',
@@ -60,7 +65,7 @@ function App() {
         })
       }
     }   
-    const postMsg = { action, dirName, docName }
+    const postMsg = { action, dirName, docName, preDocName: defaultInfo.docName, preDirName: defaultInfo.dirName }
     ipcRenderer.send('editDoc', JSON.stringify(postMsg))
   }
   function validateError(errMsg: ValidateinMsg) {
@@ -86,7 +91,7 @@ function App() {
     if (dirs.find(dir => dir.name === dirName && defaultInfo.dirName !== dirName)) {
       return validateError('文件夹名称已存在')
     }
-    const postMsg = { action, dirName }
+    const postMsg = { action, dirName, preDirName: defaultInfo.dirName }
     ipcRenderer.send('editDoc', JSON.stringify(postMsg))
   }
   function clearValidate() {

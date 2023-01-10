@@ -7,7 +7,6 @@ import { DirInfoProp, FileInfoProp, DocInfoProp } from 'types/app'
  */
 export function getAllDoc() {
   const _dir: FileInfoProp[] = []
-  console.log(_getDir());
   _getDir().forEach(dir => {
     const fullPath = getDocPath(dir)
     const stats = fs.statSync(fullPath)

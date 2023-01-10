@@ -86,15 +86,14 @@ function useContextMenu(store) {
         return store.emptyMenu()
       }
       const { doc, dir } = dataset
+      // 右键文件夹 可以创建文档 可以编辑文件夹名称
       if (dir && !doc) {
         return store.editDir(doc, dir)
       }
-      // // 右键 li 也分3种情况 双击的是文件夹还是md文档,还是文件夹下的md文档
-      // const { doc, dir } = dataset
-      // // 右键文件夹 创建文档
-      // if (dir && !doc) {
-      //   return store.createDirMenu(dir)
-      // }
+      if (doc) {
+        return store.editDoc(doc, dir)
+      }
+      // 右键 li 也分3种情况 双击的是文件夹还是md文档,还是文件夹下的md文档
       // // 右键文档
       // if (doc) {
       //   const docInfo = {

@@ -11,8 +11,7 @@ export function createFormDialog(windows: WindowsProp, action: FormDialogAction,
     parent: windows.main,
     modal: true,
     width: 360,
-    // 200 125 150
-    height: 150,
+    height: action ==='editDoc' ? 200 :  150,
     useContentSize: true,
     frame: false,
     webPreferences: { 
@@ -36,17 +35,26 @@ export function createFormDialog(windows: WindowsProp, action: FormDialogAction,
     windows.formDialog?.close()
   })
   ipcMain.on('editDoc', (_, info) => {
-    const { action, dirName, docName }: ActionInfoProp = JSON.parse(info)
+    const { action, dirName, docName, preDirName, preDocName }: ActionInfoProp = JSON.parse(info)
+    // 文档编辑有几种情况 1. 根目录新建 2. 文件夹下新建 3. 重命名 4. 移动到其他的文件夹或者到根目录下同时改了名字
     if (action === 'editDoc') {
-      // 编辑根目录的文档
-      if (!dirName) {
-        fs.writeFileSync(getDocPath(docName) + '.md', `#${docName}`)
-        editDocsSuccess(windows, '创建文档成功')
+      // 没有原始文档值 即为新建
+      if (!preDocName) {
+        fs.writeFileSync(getDocPath(docName, dirName) + '.md', `#${docName}`)
+        return editDocsSuccess(windows, '创建文档成功')
       }
+      fs.renameSync(getDocPath(preDocName, preDirName) + '.md', getDocPath(docName, dirName) + '.md')
+      editDocsSuccess(windows, '编辑文档成功')
     }
     if (action === 'editDir') {
-      fs.mkdirSync(getDocPath(undefined, dirName))
-      editDocsSuccess(windows, '创建文件夹成功')
+      // 存在就是文件夹重命名
+      if (preDirName) {
+        fs.renameSync(getDocPath(undefined, preDirName), getDocPath(undefined, dirName))
+        editDocsSuccess(windows, '文件夹重命名成功')
+      } else {
+        fs.mkdirSync(getDocPath(undefined, dirName))
+        editDocsSuccess(windows, '创建文件夹成功')
+      }
     }
   })
 }

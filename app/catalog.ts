@@ -30,6 +30,7 @@ export function createCatalog(windows: WindowsProp, md_file: string) {
   ipcMain.on('getDocs', () => {
     getDocAndPost(catalog)
   })
+  // 右键空白处
   ipcMain.on('emptyMenu', e => {
     const template: MenuItemConstructorOptions[] = [
       {
@@ -55,9 +56,40 @@ export function createCatalog(windows: WindowsProp, md_file: string) {
     const menu = Menu.buildFromTemplate(template)
     menu.popup({window: BrowserWindow.fromWebContents(e.sender) as BrowserWindow})
   })
+  // 右键文件夹
   ipcMain.on('editMune', (e, info) => {
     // 通过 docName 和 dirName 的存在关系,判断编辑的是 文档 还是文件夹 还是文件夹下的文档
+    const { dirName } = JSON.parse(info)
+    const template: MenuItemConstructorOptions[] = [
+      {
+        label: "重命名",
+        click: () => {
+          createFormDialog(windows, 'editDir', { dirName })
+        }
+      },
+      {
+        label: "此文件夹下创建文档",
+        click: () => {
+          createFormDialog(windows, 'editDoc', { dirName })
+        }
+      },
+    ]
+    const menu = Menu.buildFromTemplate(template)
+    menu.popup({window: BrowserWindow.fromWebContents(e.sender) as BrowserWindow})
+  })
+  // 右键文档
+  ipcMain.on('editMenuDoc', (e, info) => {
     const { docName, dirName } = JSON.parse(info)
+    const template: MenuItemConstructorOptions[] = [
+      {
+        label: "编辑此文档",
+        click: () => {
+          createFormDialog(windows, 'editDoc', { dirName, docName })
+        }
+      },
+    ]
+    const menu = Menu.buildFromTemplate(template)
+    menu.popup({window: BrowserWindow.fromWebContents(e.sender) as BrowserWindow})
   })
 }
 
